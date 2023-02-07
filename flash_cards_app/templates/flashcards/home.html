@@ -1,0 +1,49 @@
+{% extends "flashcards/layout.html" %}
+{% block title %}
+<p>Just another home page</p>
+{% endblock %}
+{% block content %}
+    {% comment %} <form method="POST" class="log-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form> {% endcomment %}
+
+    <h2>Flash Card List</h2>
+
+    {% if card_list %}
+        
+            
+        {% for card in card_list %}
+            {% comment %} <div id="flashCard{{ card.id }}" onclick="flipCard({{ card.id }})" class="card_front">
+                <h1>
+                    {{ card.front }}
+                </h1>
+            </div>
+            <div id="flashCard{{ card.id }}" onclick="flipCard({{ card.id }})" class="card_back">
+                <h1>
+                    {{ card.back }} 
+                </h1>
+            </div> {% endcomment %}
+
+            <div class="flip-card" id="flashCard{{ card.id }}" onclick="flipCard({{ card.id }})">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <h1> {{ card.front }} </h1>
+                    </div>
+                    <div class="flip-card-back">
+                        <h1> {{ card.back }} </h1>
+                    </div>
+                </div>
+            </div>
+
+            <a href="delete/{{card.id}}">Delete</a>
+        
+        {% endfor %}
+
+    {% else %}
+    <p>No cards yet</p>
+
+    {% endif %}
+
+{% endblock %}

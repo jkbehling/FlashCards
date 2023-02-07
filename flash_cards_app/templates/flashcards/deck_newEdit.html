@@ -1,0 +1,43 @@
+<div class="modal-content">
+    <div class="modal-header">
+        {% if deck %}
+        <h2>Edit Deck</h2>
+        {% else %}
+        <h2>Create Deck</h2>
+        {% endif %}
+    </div>
+
+    <form hx-post="{{ request.path }}" enctype="multipart/form-data" class="log-form" id="deck_form">
+
+    <div class="modal-body">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.name.id_for_label }}">Deck Name</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="{{ form.name.id_for_label }}"
+                    name="name"
+                    {% if form.instance.name %}
+                    value="{{ form.name.value }}"
+                    {% endif %}
+                />
+                {{ form.errors.name }}
+            </div>
+
+    </div>
+
+    <div class="modal-footer">
+        <div class="d-flex align-items-center w-100">
+            {% if deck %}
+            <a href="/deck_delete/{{ deck.id }}" class="btn btn-with-fa p-2"><i class="fa-solid fa-trash"></i>Delete</a>
+            {% endif %}
+            <button type="submit" class="btn btn-with-fa p-2 ml-auto">Save</button>
+        </div>
+    </form>
+
+    </div>
+</div>
+
+
+

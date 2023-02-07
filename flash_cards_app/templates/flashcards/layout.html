@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>{% block title %}{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'flashcards/site.css' %}"/>
+    <link rel="stylesheet" href="{% static 'flashcards/boot/css/bootstrap.min.css' %}"/>
+    {% include 'django_quill/media.html' %}
+    <script src="https://kit.fontawesome.com/7b09205e5d.js" crossorigin="anonymous"></script>
+    {% comment %} <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> {% endcomment %}
+    
+</head>
+
+<body>
+<div class="navbar">
+    <a href="{% url 'decks' %}" class="navbar-item">Home</a>
+</div>
+
+<div class="content">
+    {% block content %}
+    {% endblock %}
+    
+</div>
+
+
+<footer class="footer">
+    <p>&copy; 2018</p>
+</footer>
+
+<div id="modal" class="modal fade" tabindex="-1">
+    <div id ="dialog" class="modal-dialog" hx-target="this">
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="{% static 'flashcards/boot/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'flashcards/boot/js/bootstrap.min.js' %}"></script>
+<script src="https://unpkg.com/htmx.org@1.8.2"></script>
+{% comment %} <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> {% endcomment %}
+<script src="{% static 'flashcards/flashcards.js' %}"></script>
+
+</body>
+</html>

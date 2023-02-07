@@ -1,0 +1,21 @@
+{% if deck_list_chunks %}  
+{% for chunk in deck_list_chunks %}
+<div class="row">
+    {% for deck in chunk %}
+    <div class="col-sm-6">
+        <a class="custom_atag" href="{% url 'view_deck' deck.id %}">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">{{ deck.name }}</h5>
+                <p class="card-text">Cards: {{ deck.card_set.count }}</p>
+            </div>
+        </div>
+        </a>
+        <button class="btn btn-with-fa btn-sm card_edit" hx-get="{% url 'deck_edit' id=deck.id %}" hx-target="#dialog" class="button btn-primary"><i class="fa-solid fa-pen-to-square"></i>Edit</button>
+    </div>
+    {% endfor %}
+</div>
+{% endfor %}
+{% else %}
+<p>No decks yet</p>
+{% endif %}

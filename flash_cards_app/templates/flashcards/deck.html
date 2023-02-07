@@ -1,0 +1,16 @@
+{% extends "flashcards/layout.html" %}
+{% block title %}
+Decks
+{% endblock %}
+
+{% block content %}
+
+<div class="mt-3 mb-4">
+    <button class="btn btn-primary" hx-get="{% url 'deck_new' %}" hx-target="#dialog" class="button btn-primary">New Deck</button>
+</div>
+
+<div hx-get="{% url 'deck_list' %}" hx-trigger="load, deckListChanged from:body" hx-target="this">
+    <span>...Loading...</span>
+</div>
+
+{% endblock %}

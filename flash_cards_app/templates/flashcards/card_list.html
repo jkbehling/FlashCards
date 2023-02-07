@@ -1,0 +1,181 @@
+{% if card_list %}
+<div class="carouselContainer">
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" data-interval="false">
+        <div class="carousel-inner">
+        <div class="header-wrapper">
+        </div>
+        {% for card in card_list %}
+        <div class="flashcard-header mx-auto" id="card-header{{card.id}}">
+            <div class="row">
+                <div class="col">
+                </div>
+                <div class="col d-flex justify-content-center align-items-center">
+                    <span class="card-num">{{ card.card_num }}/{{ card_list.count }}</span>
+                </div>
+                <div class="col d-flex justify-content-end align-items-center">
+                    <button hx-get="{% url 'card_Edit' id=card.id %}" 
+                        hx-target="#dialog"
+                        onclick="setCard({{ card.id }}, event)"
+                        class="btn btn-with-fa">
+                        <i class="fa-solid fa-pen-to-square"></i>Edit
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+            <div class="carousel-item" id="carousel-item{{ card.id }}">
+                <div class="flip-card" id="flashCard{{ card.id }}">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front" onclick="flipCard({{ card.id }})">
+                            {% comment %} <div class="flashcard-footer">
+                                <div class="row">
+                                    <div class="col">
+                                    </div>
+                                    <div class="col d-flex justify-content-center align-items-center">
+                                        <span class="card-num">{{ card.card_num }}/{{ card_list.count }}</span>
+                                    </div>
+                                    <div class="col d-flex justify-content-end align-items-center">
+                                        <button hx-get="{% url 'card_Edit' id=card.id %}" 
+                                            hx-target="#dialog"
+                                            onclick="setCard({{ card.id }}, event)"
+                                            class="btn btn-with-fa">
+                                            <i class="fa-solid fa-pen-to-square"></i>Edit
+                                        </button>
+                                    </div>
+                                </div>
+                            </div> {% endcomment %}
+                            <p class="flip-card-text"> {{ card.front_content.html|safe }} </p>
+                            {% if card.card_image.url != Null %}
+                            <img src="{{ card.card_image.url }}" height="150">
+                            {% endif %}
+                            
+                        </div>
+                        <div class="flip-card-back" onclick="flipCard({{ card.id }})">
+                            {% comment %} <div class="flashcard-footer">
+                                <div class="row">
+                                    <div class="col">
+                                    </div>
+                                    <div class="col d-flex justify-content-center align-items-center">
+                                        <span class="card-num">{{ card.card_num }}/{{ card_list.count }}</span>
+                                    </div>
+                                    <div class="col d-flex justify-content-end align-items-center">
+                                        <button hx-get="{% url 'card_Edit' id=card.id %}" 
+                                            hx-target="#dialog"
+                                            onclick="setCard({{ card.id }}, event)"
+                                            class="btn btn-with-fa">
+                                            <i class="fa-solid fa-pen-to-square"></i>Edit
+                                        </button>
+                                    </div>
+                                </div>
+                            </div> {% endcomment %}
+
+                            <p class="flip-card-text"> {{ card.back_content.html|safe }} </p>
+                                
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+
+        <button class="carousel-control-prev-custom" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev" onclick="prevCard()">
+        {% comment %} <span class="carousel-control-prev-icon" aria-hidden="true"></span> {% endcomment %}
+        <i class="fa-solid fa-chevron-left fa-lg"></i>
+        <span class="visually-hidden"></span>
+        </button>
+        <button class="carousel-control-next-custom" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next" onclick="nextCard()">
+        {% comment %} <span class="carousel-control-next-icon" aria-hidden="true"></span> {% endcomment %}
+        <i class="fa-solid fa-chevron-right fa-lg"></i>
+        <span class="visually-hidden"></span>
+        </button>
+
+    </div>
+</div>
+{% else %}
+<p>Add a new card!</p>
+{% endif %}
+
+<script>
+
+    function prevCard(id) {
+        $('#carouselExampleControls').carousel('prev')
+
+        //Get all header elements
+        var allHeaders = document.getElementsByClassName('flashcard-header')
+        //Find the active header
+        activeHeader = document.getElementsByClassName('header-active')
+        //Find the active header index within the array of all header elements
+        var foundHeader = Array.from(allHeaders).find(element => element.id==activeHeader[0].id)
+        var foundHeaderIndex = (Array.from(allHeaders)).indexOf(foundHeader)
+        //Add the header-active class to the previous header element
+        if (foundHeaderIndex != 0) {
+            foundHeader.classList.remove("header-active")
+            allHeaders[foundHeaderIndex-1].classList.add("header-active")
+        }
+        //If it's the first element, add it to the last element
+        else {
+            foundHeader.classList.remove("header-active")
+            allHeaders[allHeaders.length-1].classList.add("header-active")
+        }
+
+    }
+
+    function nextCard(id) {
+        $('#carouselExampleControls').carousel('next')
+
+        //Get all header elements
+        var allHeaders = document.getElementsByClassName('flashcard-header')
+        //Get the active header element
+        activeHeader = document.getElementsByClassName('header-active')
+        //Find the active header element index in the allHeaders list
+        var foundHeader = Array.from(allHeaders).find(element => element.id==activeHeader[0].id)
+        var foundHeaderIndex = (Array.from(allHeaders)).indexOf(foundHeader)
+        //Make the next element in the list the active element
+        if (foundHeaderIndex != allHeaders.length-1) {
+            foundHeader.classList.remove("header-active")
+            allHeaders[foundHeaderIndex+1].classList.add("header-active")
+        }
+        //If the current element is the last one, make the first one active
+        else {
+            foundHeader.classList.remove("header-active")
+            allHeaders[0].classList.add("header-active")
+        }
+
+    }
+
+    function setCard(id, event) {
+        localStorage.setItem('currentCard', id)
+        //console.log(localStorage.getItem('currentCard'))
+        event.stopPropagation();
+    }
+
+    $(document).ready(function() {
+        //console.log("Hello World")
+        //console.log(localStorage.getItem("currentCard"))
+        if(localStorage.getItem("currentCard") != null) {
+            
+            var currentCard = localStorage.getItem("currentCard");
+            var docCard = document.getElementById("carousel-item"+currentCard);
+            var cardHeader = document.getElementById("card-header"+currentCard);
+            console.log(docCard)
+            if (docCard != null) {
+                docCard.classList.add("active");
+                cardHeader.classList.add("header-active")
+            }
+            else {
+                var docCards = document.getElementsByClassName("carousel-item")
+                docCards[0].classList.add("active");
+                var cardHeaders = document.getElementsByClassName("flashcard-header")
+                cardHeaders[0].classList.add("header-active")
+            }
+            //console.log(currentCard + " " + docCard.classList)
+        }
+        else {
+            var docCards = document.getElementsByClassName("carousel-item")
+            docCards[0].classList.add("active");
+            var cardHeaders = document.getElementsByClassName("flashcard-header")
+            cardHeaders[0].classList.add("header-active")
+        }
+    })
+</script>

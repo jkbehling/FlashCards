@@ -1,0 +1,97 @@
+<div class="modal-content">
+    <div class="modal-header">
+        {% if isNew %}
+        <h2>Create a Card</h2>
+        {% else %}
+        <h2>Edit Card</h2>
+        {% endif %}
+    </div>
+
+    <form hx-post="{{ request.path }}" enctype="multipart/form-data" class="log-form">
+
+    <div class="modal-body">
+            {% csrf_token %}
+            <div class="form-group">
+                <label = for="{{ form.front_content.id_for_label }}">Front</label>
+                {{ form.front_content }}
+                {{ form.errors.front_content }}
+                <label for="{{ form.back_content.id_for_label }}">Back</label>
+                {{ form.back_content }}
+                {{ form.errors.back_content }}
+                <label for="{{ form.card_image.id_for_label }}">Image</label><br>
+                {% if card.card_image %}
+                <img src={{ form.instance.card_image.url }} height="70px"><br>
+                <input
+                    type="checkbox"
+                    name="clear_card_image"
+                    id="{{ form.clear_card_image.id_for_label }}"
+                >Clear</label>
+                <br>
+                <span>Change:<span><br>
+                {% endif %}
+                <div class="input-group">
+                    <div class="custom-file custom-file-no-browse-btn">
+                        <input
+                            type="file"
+                            class="custom-file-input"
+                            id="{{ form.card_image.id_for_label }}"
+                            name="card_image"
+                        >
+                        <label class="custom-file-label" for="{{ form.card_image.id_for_label }}">
+                            {% if form.instance.card_image %}
+                            {{ form.instance.card_image.name }}
+                            {% else %}
+                            Choose File
+                            {% endif %}
+                        </label>
+                    </div>
+                    <div class="input-group-append">
+                        <button 
+                            class="btn btn-with-fa-upload" 
+                            type="button" 
+                            id="get_file" 
+                            onclick="choose_file()">
+                            <i class="fa-solid fa-image"></i>Upload
+                        </button>
+                    </div>
+                </div>
+                {{ form.errors.card_image }}    
+            </div>
+    </div>
+
+    <div class="modal-footer">
+        <div class="d-flex w-100">
+            {% if isNew is False %}
+            <a href="/card_delete/{{card.id}}" class="btn btn-with-fa p-2"><i class="fa-solid fa-trash"></i>Delete</a>
+            {% endif %}
+            <button type="submit" class="btn btn-with-fa ml-auto p-2">
+                {% if isNew %}
+                Create
+                {% else %}
+                Save
+                {% endif %}
+            </button>
+        </div>
+    </div>
+
+    </form>
+
+</div>
+
+<script>
+    function clearImage() {
+        document.getElementById()
+    }
+
+    function choose_file() {
+        document.getElementById("id_card_image").click();
+    }
+
+    $('#id_card_image').change(function() {
+        var file = $('#id_card_image')[0].files[0].name;
+        console.log(file);
+        $('.custom-file-label').text(file);
+    });
+</script>
+
+

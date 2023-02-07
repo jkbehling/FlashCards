@@ -1,0 +1,9 @@
+{% extends "flashcards/layout.html" %}
+{% block title %}
+
+{% endblock %}
+{% block content %}
+<form action="" method="POST">{%csrf_token%}
+    {{ form.as_p }}
+</form>
+{% endblock %}
