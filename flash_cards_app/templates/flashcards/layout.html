@@ -12,7 +12,7 @@
     
 </head>
 
-<body>
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
 <div class="navbar">
     <a class="navbar-brand">Flashcards</a>
     <div class="vertical-line"></div>
@@ -50,7 +50,6 @@
 <script src="{% static 'flashcards/boot/js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'flashcards/boot/js/bootstrap.min.js' %}"></script>
 <script src="https://unpkg.com/htmx.org@1.8.2"></script>
-{% comment %} <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> {% endcomment %}
 <script src="{% static 'flashcards/flashcards.js' %}"></script>
 
 </body>
