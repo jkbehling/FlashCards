@@ -31,7 +31,11 @@ SECRET_KEY = "django-insecure-g2&4+y(4gd90=$lvx2(j$&ppljp&x4_!7)!zk4t7z5_ywq43n8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '0.0.0.0',
+    'johns-flashcards.herokuapp.com', # your herokuapp url
+    '127.0.0.1'
+]
 
 
 # Application definition
