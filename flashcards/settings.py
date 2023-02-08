@@ -78,24 +78,31 @@ WSGI_APPLICATION = "flashcards.wsgi.application"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 env = environ.Env()
 environ.Env.read_env()
-DB_NAME = env("DB_NAME")
-DB_USER = env("DB_USER")
-DB_PASSWORD = env("DB_PASSWORD")
-DB_HOST = env("DB_HOST")
-DB_PORT = env("DB_PORT")
+
 DATABASES = {
+    # For sqlite database
     # "default": {
     #     "ENGINE": "django.db.backends.sqlite3",
     #     "NAME": BASE_DIR / "db.sqlite3",
     # }
+    # For local database
     "default": {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': DB_NAME,
-        'USER': DB_USER,
-        'PASSWORD': DB_PASSWORD,
-        'HOST': DB_HOST,
-        'PORT': DB_PORT,
+        'NAME': env("DB_NAME_LOCAL"),
+        'USER': env("DB_USER_LOCAL"),
+        'PASSWORD': env("DB_PASSWORD_LOCAL"),
+        'HOST': env("DB_HOST_LOCAL"),
+        'PORT': env("DB_PORT_LOCAL"),
     }
+    # For production database
+    # "default": {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': env("DB_NAME"),
+    #     'USER': env("DB_USER"),
+    #     'PASSWORD': env("DB_PASSWORD"),
+    #     'HOST': env("DB_HOST"),
+    #     'PORT': env("DB_PORT"),
+    # }
 }
 
 

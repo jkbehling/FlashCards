@@ -3,19 +3,22 @@
 {{ deck.name }}
 {% endblock %}
 {% block content %}
+<div style="display: flex; align-items: center; flex-direction: column; justify-content: center;">
+  <div class="mt-3 mb-4">
+    {% if deck %}
+        <h1>{{ deck.name }}</h1>
+    {% else %}
+        <h1>No Deck</h1>
+    {% endif %}
+  </div>
 
-{% if deck %}
-    <h1>{{ deck.name }}</h1>
-{% else %}
-    <h1>No Deck</h1>
-{% endif %}
+  <button hx-get="{% url 'card_New' id=deck.id %}" hx-target="#dialog" class="btn btn-with-fa">
+    <i class="fa-regular fa-square-plus"></i>New Card
+  </button>
 
-<button hx-get="{% url 'card_New' id=deck.id %}" hx-target="#dialog" class="btn btn-with-fa">
-  <i class="fa-regular fa-square-plus"></i>New Card
-</button>
-
-<div class="big-padding" hx-get="{% url 'card_list' id=deck.id %}" hx-trigger="load, cardListChanged from:body" hx-target="this">
-  <span>...Loading...</span>
+  <div class="big-padding" hx-get="{% url 'card_list' id=deck.id %}" hx-trigger="load, cardListChanged from:body" hx-target="this">
+    <span>...Loading...</span>
+  </div>
 </div>
 
 {% endblock %}

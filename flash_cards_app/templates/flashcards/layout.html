@@ -14,18 +14,31 @@
 
 <body>
 <div class="navbar">
-    <a href="{% url 'decks' %}" class="navbar-item">Home</a>
+    <a class="navbar-brand">Flashcards</a>
+    <div class="vertical-line"></div>
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a href="{% url 'decks' %}" class="navbar-link">Home</a>
+        </li>
+    </ul>
 </div>
-
 <div class="content">
-    {% block content %}
-    {% endblock %}
-    
+    <div class="content-body">
+        <div class="left-margin"></div>
+        <div class="content-body-middle">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <div class="right-margin"></div>
+    </div>
 </div>
 
 
 <footer class="footer">
-    <p>&copy; 2018</p>
+    <div>
+        <span>John Behling 2023 | </span>
+        <a class="badge badge-pill badge-light" href="https://www.linkedin.com/in/john-behling">LinkedIN</a>
+    </div>
 </footer>
 
 <div id="modal" class="modal fade" tabindex="-1">

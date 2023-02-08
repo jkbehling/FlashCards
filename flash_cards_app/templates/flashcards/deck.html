@@ -6,7 +6,10 @@ Decks
 {% block content %}
 
 <div class="mt-3 mb-4">
-    <button class="btn btn-primary" hx-get="{% url 'deck_new' %}" hx-target="#dialog" class="button btn-primary">New Deck</button>
+    <h2>Welcome to John's Flashcards app!</h2>
+    <p>Select a deck below, or create a new deck to get started.</p>
+    <button class="btn btn-with-fa" hx-get="{% url 'deck_new' %}" hx-target="#dialog" class="button btn-primary">
+        <i class="fa-regular fa-square-plus"></i>New Deck</button>
 </div>
 
 <div hx-get="{% url 'deck_list' %}" hx-trigger="load, deckListChanged from:body" hx-target="this">
