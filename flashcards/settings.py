@@ -12,11 +12,15 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
-import environ
+import dj_database_url
+import dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+dotenv_file = os.path.join(BASE_DIR, ".env")
+if os.path.isfile(dotenv_file):
+    dotenv.load_dotenv(dotenv_file)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -76,34 +80,9 @@ WSGI_APPLICATION = "flashcards.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-env = environ.Env()
-environ.Env.read_env()
 
-DATABASES = {
-    # For sqlite database
-    # "default": {
-    #     "ENGINE": "django.db.backends.sqlite3",
-    #     "NAME": BASE_DIR / "db.sqlite3",
-    # }
-    # For local database
-    "default": {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env("DB_NAME_LOCAL"),
-        'USER': env("DB_USER_LOCAL"),
-        'PASSWORD': env("DB_PASSWORD_LOCAL"),
-        'HOST': env("DB_HOST_LOCAL"),
-        'PORT': env("DB_PORT_LOCAL"),
-    }
-    # For production database
-    # "default": {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': env("DB_NAME"),
-    #     'USER': env("DB_USER"),
-    #     'PASSWORD': env("DB_PASSWORD"),
-    #     'HOST': env("DB_HOST"),
-    #     'PORT': env("DB_PORT"),
-    # }
-}
+DATABASES = { }
+DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 
 
 # Password validation
