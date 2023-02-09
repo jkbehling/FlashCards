@@ -55,6 +55,8 @@ INSTALLED_APPS = [
 
 CORS_ORIGIN_ALLOW_ALL = True
 
+CSRF_TRUSTED_ORIGINS = ["https://johns-flashcards.herokuapp.com"]
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -133,7 +135,6 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
 # set the absolute path to your static files directory
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # enable Django's static files handling
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
