@@ -16,7 +16,6 @@ body {
     padding-left: 15px;
     padding-right: 15px;
     background-color: #F6F7FB;
-    overflow-x: hidden;
 }
 .content-body {
     display: flex;

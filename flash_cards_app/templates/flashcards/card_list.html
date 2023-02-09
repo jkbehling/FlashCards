@@ -21,27 +21,11 @@
             </div>
         </div>
         
-            <div class="carousel-item" id="carousel-item{{ card.id }}">
+            <div class="carousel-item" style="height: 400px;" id="carousel-item{{ card.id }}">
                 <div class="flip-card" id="flashCard{{ card.id }}">
                     <div class="flip-card-inner">
                         <div class="flip-card-front" onclick="flipCard({{ card.id }})">
-                            {% comment %} <div class="flashcard-footer">
-                                <div class="row">
-                                    <div class="col">
-                                    </div>
-                                    <div class="col d-flex justify-content-center align-items-center">
-                                        <span class="card-num">{{ card.card_num }}/{{ card_list.count }}</span>
-                                    </div>
-                                    <div class="col d-flex justify-content-end align-items-center">
-                                        <button hx-get="{% url 'card_Edit' id=card.id %}" 
-                                            hx-target="#dialog"
-                                            onclick="setCard({{ card.id }}, event)"
-                                            class="btn btn-with-fa">
-                                            <i class="fa-solid fa-pen-to-square"></i>Edit
-                                        </button>
-                                    </div>
-                                </div>
-                            </div> {% endcomment %}
+
                             <p class="flip-card-text"> {{ card.front_content.html|safe }} </p>
                             {% if card.card_image.url != Null %}
                             <img src="{{ card.card_image.url }}" height="150">
@@ -49,24 +33,6 @@
                             
                         </div>
                         <div class="flip-card-back" onclick="flipCard({{ card.id }})">
-                            {% comment %} <div class="flashcard-footer">
-                                <div class="row">
-                                    <div class="col">
-                                    </div>
-                                    <div class="col d-flex justify-content-center align-items-center">
-                                        <span class="card-num">{{ card.card_num }}/{{ card_list.count }}</span>
-                                    </div>
-                                    <div class="col d-flex justify-content-end align-items-center">
-                                        <button hx-get="{% url 'card_Edit' id=card.id %}" 
-                                            hx-target="#dialog"
-                                            onclick="setCard({{ card.id }}, event)"
-                                            class="btn btn-with-fa">
-                                            <i class="fa-solid fa-pen-to-square"></i>Edit
-                                        </button>
-                                    </div>
-                                </div>
-                            </div> {% endcomment %}
-
                             <p class="flip-card-text"> {{ card.back_content.html|safe }} </p>
                                 
                         </div>
