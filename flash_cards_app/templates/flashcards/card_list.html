@@ -11,10 +11,11 @@
                     <span class="card-num">{{ card.card_num }}/{{ card_list.count }}</span>
                 </div>
                 <div class="col d-flex justify-content-end align-items-center">
-                    <button hx-get="{% url 'card_Edit' id=card.id %}" 
+                    <button hx-get="{% url 'card_Edit' id=card.id %}"
                         hx-target="#dialog"
                         onclick="setCard({{ card.id }}, event)"
-                        class="btn btn-with-fa">
+                        class="btn btn-with-fa"
+                        style="z-index: 1000;">
                         <i class="fa-solid fa-pen-to-square"></i>Edit
                     </button>
                 </div>
